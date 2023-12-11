@@ -37,10 +37,6 @@ useHead({
   ],
   title: `SnapEasy`,
 });
-
-defineOgImage({
-  title: `SnapEasy`,
-});
 </script>
 
 <template>
