@@ -5,7 +5,6 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "shadcn-nuxt",
     "@nuxt/image",
-    "nuxt-og-image",
     "@nuxtjs/google-fonts",
     "nuxt-icon",
   ],
@@ -27,8 +26,5 @@ export default defineNuxtConfig({
         ital: [100],
       },
     },
-  },
-  site: {
-    url: "https://snapeasy.vercel.app",
   },
 });

@@ -15,7 +15,6 @@
     "@nuxtjs/tailwindcss": "^6.10.1",
     "nuxt": "^3.8.2",
     "nuxt-icon": "^0.6.7",
-    "nuxt-og-image": "3.0.0-rc.8",
     "shadcn-nuxt": "^0.1.0",
     "typescript": "^5.3.3",
     "vue": "^3.3.10",
@@ -32,7 +31,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-vue-next": "^0.294.0",
-    "playwright": "^1.40.1",
     "radix-vue": "^1.2.4",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7"
