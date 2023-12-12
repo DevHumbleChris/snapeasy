@@ -1,10 +1,5 @@
 <script setup lang="ts">
 import Chat from "~/components/global/Chat.vue";
-const year = computed(() => {
-  let date = new Date();
-
-  return date.getFullYear();
-});
 
 const generatedScreen = useState("generatedScreen", () => "");
 
@@ -38,12 +33,11 @@ const handleSubmit = () => {
 </script>
 
 <template>
-  <!-- Content -->
-  <div class="h-screen flex flex-col pb-6">
-    <div class="h-full flex flex-col justify-center">
-      <div
-        class="-mt-48 max-w-4xl w-full text-center mx-auto px-4 sm:px-6 lg:px-8"
-      >
+  <section>
+    <div
+      class="relative overflow-hidden before:absolute before:top-0 before:start-1/2 before:bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')] before:bg-no-repeat before:bg-top before:bg-cover before:w-full before:h-full before:-z-[1] before:transform before:-translate-x-1/2 dark:before:bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element-dark.svg')]"
+    >
+      <div class="max-w-4xl w-full text-center mx-auto px-4 sm:px-6 lg:px-8">
         <NuxtImg
           src="/the-coding-montana.png"
           alt="the-coding-montana logo"
@@ -86,7 +80,87 @@ const handleSubmit = () => {
         </form>
       </div>
       <!-- End Search -->
-      <Chat />
+      <div class="grid grid-cols-2 p-10 gap-20">
+        <div class="border p-2 rounded-md shadow-lg">
+          <Chat />
+        </div>
+        <div class="space-y-4">
+          <button
+            type="button"
+            class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-slate-900 dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            id="tabs-with-card-item-2"
+            data-hs-tab="#tabs-with-card-2"
+            aria-controls="tabs-with-card-2"
+            role="tab"
+          >
+            <span class="flex">
+              <svg
+                class="flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m12 14 4-4" />
+                <path d="M3.34 19a10 10 0 1 1 17.32 0" />
+              </svg>
+              <span class="grow ms-6">
+                <span
+                  class="block text-lg font-semibold hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200"
+                  >Smart dashboards</span
+                >
+                <span
+                  class="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-gray-200"
+                  >Quickly Preline sample components, copy-paste codes, and
+                  start right off.</span
+                >
+              </span>
+            </span>
+          </button>
+          <button
+            type="button"
+            class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-slate-900 dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            id="tabs-with-card-item-2"
+            data-hs-tab="#tabs-with-card-2"
+            aria-controls="tabs-with-card-2"
+            role="tab"
+          >
+            <span class="flex">
+              <svg
+                class="flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m12 14 4-4" />
+                <path d="M3.34 19a10 10 0 1 1 17.32 0" />
+              </svg>
+              <span class="grow ms-6">
+                <span
+                  class="block text-lg font-semibold hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200"
+                  >Smart dashboards</span
+                >
+                <span
+                  class="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-gray-200"
+                  >Quickly Preline sample components, copy-paste codes, and
+                  start right off.</span
+                >
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
 
       <img
         v-if="generatedScreen"
@@ -95,18 +169,5 @@ const handleSubmit = () => {
         :alt="'screenia screenshot of' + webUrl"
       />
     </div>
-
-    <footer class="mt-auto max-w-4xl text-center mx-auto px-4 sm:px-6 lg:px-8">
-      <p class="text-xs text-gray-600 dark:text-gray-500">
-        © {{ year }}. A product of
-        <NuxtLink
-          class="text-slate-900 decoration-2 hover:underline font-semibold dark:text-gray-300"
-          href="https://the-coding-montana.vercel.app"
-          target="_blank"
-          >The Coding Montana</NuxtLink
-        >.
-      </p>
-    </footer>
-  </div>
-  <!-- End Content -->
+  </section>
 </template>

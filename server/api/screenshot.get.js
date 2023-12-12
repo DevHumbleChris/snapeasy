@@ -1,5 +1,4 @@
 import createBrowser from "browserless";
-import Buffer from "buffer";
 
 export default defineEventHandler(async (event) => {
   const {
