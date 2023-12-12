@@ -14,7 +14,7 @@ const queryType = useState("queryType", () => "png");
 
 const takeScreenshot = async () => {
   loading.value = true;
-  await fetch(`/api/screenshot?${webUrl.value}&type=${queryType.value}`)
+  await fetch(`/api/screenshot?url=${webUrl.value}&type=${queryType.value}`)
     .then((response) => {
       if (response.status === 500) {
         loading.value = false;
@@ -24,8 +24,9 @@ const takeScreenshot = async () => {
       return response.blob();
     })
     .then((blob: any) => {
-      const url = URL.createObjectURL(blob);
-      generatedScreen.value = url;
+      console.log(blob);
+      // const url = URL.createObjectURL(blob);
+      generatedScreen.value = "";
     });
   loading.value = false;
   console.log(generatedScreen.value);

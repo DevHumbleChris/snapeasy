@@ -1,11 +1,11 @@
 import chromium from "chrome-aws-lambda";
+import puppeteer from "puppeteer-core";
 
 async function getBrowserInstance() {
   const executablePath = await chromium.executablePath;
 
   if (!executablePath) {
     // running locally
-    const puppeteer = require("puppeteer");
     return puppeteer.launch({
       args: chromium.args,
       headless: true,
@@ -52,6 +52,7 @@ export default defineEventHandler(async (event) => {
     let page = await browser.newPage();
     await page.goto(url);
     const screenshot = await page.screenshot(outPut);
+    console.log(screenshot);
 
     if (download) {
       return screenshot;
@@ -69,8 +70,4 @@ export default defineEventHandler(async (event) => {
       await browser.close();
     }
   }
-
-  return {
-    url,
-  };
 });
