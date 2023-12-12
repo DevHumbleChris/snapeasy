@@ -37,6 +37,12 @@ useHead({
   ],
   title: `SnapEasy`,
 });
+
+defineOgImageComponent("Nuxt", {
+  headline: "Author: The Coding Montana",
+  title: "SnapEasy",
+  description: "Capture Webpage Screenshots With Easy😉.",
+});
 </script>
 
 <template>

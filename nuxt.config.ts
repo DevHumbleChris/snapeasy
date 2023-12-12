@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxtjs/google-fonts",
     "nuxt-icon",
+    "nuxt-og-image",
   ],
   shadcn: {
     /**
