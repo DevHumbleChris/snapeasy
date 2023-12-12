@@ -4,6 +4,36 @@ const year = computed(() => {
 
   return date.getFullYear();
 });
+
+const generatedScreen = useState("generatedScreen", () => "");
+
+const loading = useState("loading", () => false);
+
+const webUrl = useState("webUrl", () => "");
+const queryType = useState("queryType", () => "png");
+
+const takeScreenshot = async () => {
+  loading.value = true;
+  await fetch(`/api/screenshot?${webUrl.value}&type=${queryType.value}`)
+    .then((response) => {
+      if (response.status === 500) {
+        loading.value = false;
+        generatedScreen.value = "";
+        return;
+      }
+      return response.blob();
+    })
+    .then((blob: any) => {
+      const url = URL.createObjectURL(blob);
+      generatedScreen.value = url;
+    });
+  loading.value = false;
+  console.log(generatedScreen.value);
+};
+
+const handleSubmit = () => {
+  takeScreenshot();
+};
 </script>
 
 <template>
@@ -33,24 +63,26 @@ const year = computed(() => {
 
       <!-- Search -->
       <div class="mt-10 max-w-2xl w-full mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative">
+        <form @submit.prevent="handleSubmit" class="relative">
           <input
             type="text"
+            v-model="webUrl"
             class="p-4 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
             placeholder="Type your webpage url..."
           />
           <div class="absolute top-1/2 end-2 -translate-y-1/2">
             <button
-              type="button"
+              type="submit"
               class="w-10 h-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-500 hover:text-gray-800 bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-gray-400 dark:hover:text-white dark:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
             >
               <Icon
                 name="material-symbols:camera"
                 class="flex-shrink-0 h-4 w-4"
+                :class="{ 'animate-spin': loading }"
               />
             </button>
           </div>
-        </div>
+        </form>
       </div>
       <!-- End Search -->
     </div>
