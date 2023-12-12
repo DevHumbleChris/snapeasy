@@ -24,9 +24,8 @@ const takeScreenshot = async () => {
       return response.blob();
     })
     .then((blob: any) => {
-      console.log(blob);
-      // const url = URL.createObjectURL(blob);
-      generatedScreen.value = "";
+      const url = URL.createObjectURL(blob);
+      generatedScreen.value = url;
     });
   loading.value = false;
   console.log(generatedScreen.value);
@@ -86,6 +85,13 @@ const handleSubmit = () => {
         </form>
       </div>
       <!-- End Search -->
+
+      <img
+        v-if="generatedScreen"
+        className="object-cover w-full rounded-xl"
+        :src="generatedScreen"
+        :alt="'screenia screenshot of' + webUrl"
+      />
     </div>
 
     <footer class="mt-auto max-w-4xl text-center mx-auto px-4 sm:px-6 lg:px-8">
