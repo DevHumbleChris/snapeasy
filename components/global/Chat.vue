@@ -2,8 +2,10 @@
   <section>
     <!-- Content -->
     <div class="relative">
-      <div class="max-w-4xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-        <ul class="mt-16 space-y-5">
+      <div
+        class="max-w-4xl h-80 overflow-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto"
+      >
+        <ul class="space-y-5">
           <!-- Chat Bubble -->
           <li class="max-w-2xl ms-auto flex justify-end gap-x-2 sm:gap-x-4">
             <div class="grow text-end space-y-3">
@@ -102,23 +104,11 @@
                       type="button"
                       class="py-2 px-3 inline-flex items-center gap-x-2 text-sm rounded-full border border-transparent text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                     >
-                      <svg
+                      <Icon
+                        name="solar:gallery-download-line-duotone"
                         class="h-3.5 w-3.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"
-                        />
-                        <path
-                          d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"
-                        />
-                      </svg>
-                      New answer
+                      />
+                      Download
                     </button>
                   </div>
                 </div>

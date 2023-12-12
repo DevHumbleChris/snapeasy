@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Chat from "~/components/global/Chat.vue";
+import UIType from "~/components/global/UIType.vue";
 
 const generatedScreen = useState("generatedScreen", () => "");
 
@@ -80,87 +80,7 @@ const handleSubmit = () => {
         </form>
       </div>
       <!-- End Search -->
-      <div class="grid grid-cols-2 p-10 gap-20">
-        <div class="border p-2 rounded-md shadow-lg">
-          <Chat />
-        </div>
-        <div class="space-y-4">
-          <button
-            type="button"
-            class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-slate-900 dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-            id="tabs-with-card-item-2"
-            data-hs-tab="#tabs-with-card-2"
-            aria-controls="tabs-with-card-2"
-            role="tab"
-          >
-            <span class="flex">
-              <svg
-                class="flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="m12 14 4-4" />
-                <path d="M3.34 19a10 10 0 1 1 17.32 0" />
-              </svg>
-              <span class="grow ms-6">
-                <span
-                  class="block text-lg font-semibold hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200"
-                  >Smart dashboards</span
-                >
-                <span
-                  class="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-gray-200"
-                  >Quickly Preline sample components, copy-paste codes, and
-                  start right off.</span
-                >
-              </span>
-            </span>
-          </button>
-          <button
-            type="button"
-            class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-slate-900 dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-            id="tabs-with-card-item-2"
-            data-hs-tab="#tabs-with-card-2"
-            aria-controls="tabs-with-card-2"
-            role="tab"
-          >
-            <span class="flex">
-              <svg
-                class="flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="m12 14 4-4" />
-                <path d="M3.34 19a10 10 0 1 1 17.32 0" />
-              </svg>
-              <span class="grow ms-6">
-                <span
-                  class="block text-lg font-semibold hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200"
-                  >Smart dashboards</span
-                >
-                <span
-                  class="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-gray-200"
-                  >Quickly Preline sample components, copy-paste codes, and
-                  start right off.</span
-                >
-              </span>
-            </span>
-          </button>
-        </div>
-      </div>
+      <UIType />
 
       <img
         v-if="generatedScreen"
