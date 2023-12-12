@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Chat from "~/components/global/Chat.vue";
 const year = computed(() => {
   let date = new Date();
 
@@ -85,6 +86,7 @@ const handleSubmit = () => {
         </form>
       </div>
       <!-- End Search -->
+      <Chat />
 
       <img
         v-if="generatedScreen"

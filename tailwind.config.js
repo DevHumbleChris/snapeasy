@@ -87,5 +87,7 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/typography"),
+    require("preline/plugin"),
   ],
+  content: ["./node_modules/preline/preline.js"],
 };
