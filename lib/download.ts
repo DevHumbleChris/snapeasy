@@ -1,9 +1,5 @@
-export default function download(downloadReq: String, webUrl: String) {
-  if (downloadReq === "screenshot") {
-    return getWebUrlScreenshot(webUrl);
-  } else if (downloadReq === "screencast") {
-    return getWebUrlScreencast(webUrl);
-  }
+export default function download(webUrl: String) {
+  return getWebUrlScreenshot(webUrl);
 }
 
 const getWebUrlScreenshot = async (url: String) => {
@@ -15,23 +11,7 @@ const getWebUrlScreenshot = async (url: String) => {
       return response.blob();
     })
     .then((blob: any) => {
-      if (process.client) {
-        return window.URL.createObjectURL(blob);
-      }
-    });
-
-  return file;
-};
-
-const getWebUrlScreencast = async (url: String) => {
-  const file = await fetch(`/api/screencast?url=${url}`)
-    .then((response: any) => {
-      if (response.status === 500) {
-        return "";
-      }
-      return response.blob();
-    })
-    .then((blob: any) => {
+      console.log(blob);
       if (process.client) {
         return window.URL.createObjectURL(blob);
       }

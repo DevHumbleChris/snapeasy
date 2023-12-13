@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   // First, create a browserless factory
   // that it will keep a singleton process running
   const browser = createBrowser({
-    timeout: 30000,
+    timeout: 80000,
     lossyDeviceName: true,
     ignoreHTTPSErrors: true,
   });
@@ -30,11 +30,7 @@ export default defineEventHandler(async (event) => {
     // Perform the action you want, e.g., getting the HTML markup
     const buffer = await browserless.screenshot(url, {
       device: "Macbook Pro 13",
-      viewport: {
-        width: 1920,
-        height: 1080,
-      },
-      waitUntil: "domcontentloaded",
+      waitUntil: "load",
     });
 
     // After your task is done, destroy your browser context

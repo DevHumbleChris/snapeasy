@@ -1,13 +1,36 @@
 <script setup>
-import Chat from "~/components/global/Chat.vue";
+import VCodeBlock from "@wdns/vue-code-block";
 import { Button } from "~/components/ui/button";
 import download from "~/lib/download";
-import slugify from "slugify";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const props = defineProps({
   generatedScreen: String,
   webUrl: String,
 });
+
+const code = ref(`
+await fetch("/api/screenshot?url=https://the-coding-montana.vercel.app")
+  .then((response: any) => {
+    if (response.status === 500) {
+      return "";
+    }
+    return response.blob();
+  })
+  .then((blob: any) => {
+    console.log(blob);
+    if (process.client) {
+      return window.URL.createObjectURL(blob);
+    }
+  });
+`);
 
 const generatedScreen = computed(() => {
   return props?.generatedScreen;
@@ -19,40 +42,26 @@ const webUrl = computed(() => {
 
 const selectedView = useState("selectedView", () => "default");
 
-const setSelectedView = (viewType) => {
-  selectedView.value = viewType;
-};
-
-const downloadType = useState("downloadType", () => "screenshot");
-
-const setDownloadType = (type) => {
-  downloadType.value = type;
-};
-
-const downloadFile = async () => {
-  const file = await download(downloadType.value, webUrl.value);
+const downloadFile = async (type) => {
+  const file = await download(webUrl.value);
   const link = document.createElement("a");
 
-  if (downloadType.value === "sceenshot") {
-    // Append the link to the document
-    document.body.appendChild(link);
+  // Append the link to the document
+  document.body.appendChild(link);
 
-    link.download = `SnapEasy_${webUrl.value}.png`;
+  link.download = `SnapEasy_${webUrl.value}.${type}`;
 
-    // Create a URL for the Blob and set it as the href attribute of the link
-    link.href = file;
+  // Create a URL for the Blob and set it as the href attribute of the link
+  link.href = file;
 
-    // Append the link to the document
-    document.body.appendChild(link);
+  // Append the link to the document
+  document.body.appendChild(link);
 
-    // Trigger a click on the link to start the download
-    link.click();
+  // Trigger a click on the link to start the download
+  link.click();
 
-    // Remove the link from the document
-    document.body.removeChild(link);
-  } else if (downloadType.value === "sceencast") {
-    console.log(file);
-  }
+  // Remove the link from the document
+  document.body.removeChild(link);
 };
 </script>
 
@@ -60,21 +69,31 @@ const downloadFile = async () => {
   <div
     class="flex flex-col-reverse sm:grid sm:grid-cols-2 p-5 sm:p-10 gap-20 mt-4 sm:items-center"
   >
-    <div v-if="selectedView === 'bot'" class="border p-2 rounded-md shadow-lg">
-      <Chat />
-    </div>
-    <div v-if="selectedView === 'default'" class="space-y-3">
+    <div class="space-y-3">
       <div class="relative border p-2 rounded-md shadow-lg">
-        <Button
-          class="absolute w-56 text-right top-5 right-5"
-          @click="downloadFile"
-        >
-          <Icon
-            name="solar:gallery-download-line-duotone"
-            class="h-3.5 w-3.5 mx-2"
-          />
-          Download
-        </Button>
+        <div class="absolute w-56 text-right top-4 right-5">
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Button class="disabled:bg-red-400 disabled:cursor-no-drop">
+                <Icon
+                  name="solar:gallery-download-line-duotone"
+                  class="h-3.5 w-3.5 mx-2"
+                />
+                Download
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem @click="downloadFile('jpeg')"
+                >jpeg</DropdownMenuItem
+              >
+              <DropdownMenuItem @click="downloadFile('png')"
+                >png</DropdownMenuItem
+              >
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
 
         <img
           className="object-cover w-full rounded-xl h-full"
@@ -86,94 +105,11 @@ const downloadFile = async () => {
           :alt="'screenia screenshot of' + webUrl"
         />
       </div>
-      <div class="flex items-center justify-center gap-4">
-        <Button
-          @click="setDownloadType('screenshot')"
-          :class="
-            downloadType === 'screenshot'
-              ? ''
-              : 'bg-transparent text-primary font-semibold border border-primary hover:bg-primary hover:text-white hover:font-normal'
-          "
-          >Screenshot</Button
-        >
-        <Button
-          @click="setDownloadType('screencast')"
-          :class="
-            downloadType === 'screencast'
-              ? ''
-              : 'bg-transparent text-primary font-semibold border border-primary hover:bg-primary hover:text-white hover:font-normal'
-          "
-          >Screencast</Button
-        >
-        <Button
-          @click="setDownloadType('pdf')"
-          :class="
-            downloadType === 'pdf'
-              ? ''
-              : 'bg-transparent text-primary font-semibold border border-primary hover:bg-primary hover:text-white hover:font-normal'
-          "
-          >PDF</Button
-        >
-      </div>
     </div>
     <div class="space-y-4">
       <button
         type="button"
-        @click="setSelectedView('default')"
-        class="text-start hover:bg-gray-200 p-4 md:p-5 rounded-xl"
-        :class="{
-          'bg-white shadow-md hover:border-transparent':
-            selectedView === 'default',
-        }"
-        id="tabs-with-card-item-2"
-        data-hs-tab="#tabs-with-card-2"
-        aria-controls="tabs-with-card-2"
-        role="tab"
-      >
-        <span class="flex">
-          <svg
-            :class="
-              selectedView === 'default'
-                ? 'flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 text-blue-600'
-                : 'flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 text-gray-800'
-            "
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="m12 14 4-4" />
-            <path d="M3.34 19a10 10 0 1 1 17.32 0" />
-          </svg>
-          <span class="grow ms-6">
-            <span
-              :class="
-                selectedView === 'default'
-                  ? 'block text-lg font-semibold text-blue-600'
-                  : 'block text-lg font-semibold text-gray-800'
-              "
-              >SnapEasy UI</span
-            >
-            <span
-              class="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-gray-200"
-              >Our UI is developed with simplicity and intuitiveness in mind,
-              making it easy to use even for first-time users.</span
-            >
-          </span>
-        </span>
-      </button>
-      <button
-        type="button"
-        @click="setSelectedView('bot')"
-        class="text-start hover:bg-gray-200 p-4 md:p-5 rounded-xl"
-        :class="{
-          'bg-white shadow-md hover:border-transparent': selectedView === 'bot',
-        }"
+        class="text-start hover:bg-gray-200 p-4 md:p-5 rounded-xl bg-white shadow-md hover:border-transparent"
         id="tabs-with-card-item-2"
         data-hs-tab="#tabs-with-card-2"
         aria-controls="tabs-with-card-2"
@@ -181,27 +117,34 @@ const downloadFile = async () => {
       >
         <span class="flex">
           <Icon
-            name="material-symbols:robot-2-outline"
-            :class="
-              selectedView === 'bot'
-                ? 'flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 text-blue-600'
-                : 'flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 text-gray-800'
-            "
+            name="carbon:api"
+            class="flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 text-blue-600"
           />
           <span class="grow ms-6">
             <span
               :class="
-                selectedView === 'bot'
+                selectedView === 'default'
                   ? 'block text-lg font-semibold text-blue-600'
                   : 'block text-lg font-semibold text-gray-800'
               "
-              >SnapEasy Bot</span
+              >SnapEasy API</span
             >
             <span
               class="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-gray-200"
-              >Try the conversational way with our SnapEasy Bot 🤖 to get web
-              screenshots.</span
+              >Our UI is developed with simplicity and intuitiveness in mind,
+              making it easy to use even for first-time users.</span
             >
+            <client-only>
+              <div class="max-w-[30rem]">
+                <VCodeBlock
+                  :code="code"
+                  highlightjs
+                  label="Hello World"
+                  lang="javascript"
+                  theme="github-dark"
+                />
+              </div>
+            </client-only>
           </span>
         </span>
       </button>
