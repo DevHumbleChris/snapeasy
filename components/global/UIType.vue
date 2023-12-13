@@ -6,6 +6,12 @@ const selectedView = useState("selectedView", () => "default");
 const setSelectedView = (viewType) => {
   selectedView.value = viewType;
 };
+
+const downloadType = useState("downloadType", () => "screenshot");
+
+const setDownloadType = (type) => {
+  downloadType.value = type;
+};
 </script>
 
 <template>
@@ -15,23 +21,51 @@ const setSelectedView = (viewType) => {
     <div v-if="selectedView === 'bot'" class="border p-2 rounded-md shadow-lg">
       <Chat />
     </div>
-    <div
-      v-if="selectedView === 'default'"
-      class="relative border p-2 rounded-md shadow-lg"
-    >
-      <Button class="absolute w-56 text-right top-5 right-5">
-        <Icon
-          name="solar:gallery-download-line-duotone"
-          class="h-3.5 w-3.5 mx-2"
-        />
-        Download
-      </Button>
+    <div v-if="selectedView === 'default'" class="space-y-3">
+      <div class="relative border p-2 rounded-md shadow-lg">
+        <Button class="absolute w-56 text-right top-5 right-5">
+          <Icon
+            name="solar:gallery-download-line-duotone"
+            class="h-3.5 w-3.5 mx-2"
+          />
+          Download
+        </Button>
 
-      <img
-        className="object-cover w-full rounded-xl h-full"
-        src="https://www.screenia.best/images/themeptation-screenshot.png"
-        :alt="'screenia screenshot of' + webUrl"
-      />
+        <img
+          className="object-cover w-full rounded-xl h-full"
+          src="https://www.screenia.best/images/themeptation-screenshot.png"
+          :alt="'screenia screenshot of' + webUrl"
+        />
+      </div>
+      <div class="flex items-center justify-center gap-4">
+        <Button
+          @click="setDownloadType('screenshot')"
+          :class="
+            downloadType === 'screenshot'
+              ? ''
+              : 'bg-transparent text-primary font-semibold border border-primary hover:bg-primary hover:text-white hover:font-normal'
+          "
+          >Screenshot</Button
+        >
+        <Button
+          @click="setDownloadType('screencast')"
+          :class="
+            downloadType === 'screencast'
+              ? ''
+              : 'bg-transparent text-primary font-semibold border border-primary hover:bg-primary hover:text-white hover:font-normal'
+          "
+          >Screencast</Button
+        >
+        <Button
+          @click="setDownloadType('pdf')"
+          :class="
+            downloadType === 'pdf'
+              ? ''
+              : 'bg-transparent text-primary font-semibold border border-primary hover:bg-primary hover:text-white hover:font-normal'
+          "
+          >PDF</Button
+        >
+      </div>
     </div>
     <div class="space-y-4">
       <button
