@@ -110,7 +110,7 @@ const handleSubmit = () => {
               <Icon
                 name="material-symbols:camera"
                 class="flex-shrink-0 h-4 w-4"
-                :class="{ 'animate-spin': loading }"
+                :class="{ 'animate-spin text-blue-800': loading }"
               />
             </button>
           </div>

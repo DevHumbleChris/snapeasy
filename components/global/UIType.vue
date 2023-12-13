@@ -39,9 +39,10 @@ const generatedScreen = computed(() => {
 const webUrl = computed(() => {
   return props?.webUrl;
 });
-const selectedView = useState("selectedView", () => "default");
+const isFileDownloading = useState("isFileDownloading", () => false);
 
 const downloadFile = async (type) => {
+  isFileDownloading.value = true;
   const file = await download(webUrl.value);
   const link = document.createElement("a");
 
@@ -58,6 +59,7 @@ const downloadFile = async (type) => {
 
   // Trigger a click on the link to start the download
   link.click();
+  isFileDownloading.value = false;
 
   // Remove the link from the document
   document.body.removeChild(link);
@@ -75,15 +77,18 @@ const downloadFile = async (type) => {
             <DropdownMenuTrigger>
               <Button class="disabled:bg-red-400 disabled:cursor-no-drop">
                 <Icon
-                  name="solar:gallery-download-line-duotone"
-                  class="h-3.5 w-3.5 mx-2"
+                  :name="
+                    isFileDownloading
+                      ? 'line-md:downloading-loop'
+                      : 'solar:gallery-download-line-duotone'
+                  "
+                  class="h-5 w-5 mx-2"
                 />
                 Download
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
+              <!-- <DropdownMenuSeparator /> -->
               <DropdownMenuItem @click="downloadFile('jpeg')"
                 >jpeg</DropdownMenuItem
               >
@@ -118,12 +123,7 @@ const downloadFile = async (type) => {
             class="flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 text-blue-600"
           />
           <span class="grow ms-6">
-            <span
-              :class="
-                selectedView === 'default'
-                  ? 'block text-lg font-semibold text-blue-600'
-                  : 'block text-lg font-semibold text-gray-800'
-              "
+            <span class="block text-lg font-semibold text-blue-600"
               >SnapEasy API</span
             >
             <span class="block mt-1 text-gray-800"
