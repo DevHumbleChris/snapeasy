@@ -6,11 +6,10 @@ const generatedScreen = useState("generatedScreen", () => "");
 const loading = useState("loading", () => false);
 
 const webUrl = useState("webUrl", () => "");
-const queryType = useState("queryType", () => "png");
 
 const takeScreenshot = async () => {
   loading.value = true;
-  await fetch(`/api/screenshot?url=${webUrl.value}&type=${queryType.value}`)
+  await fetch(`/api/screenshot?url=${webUrl.value}`)
     .then((response) => {
       if (response.status === 500) {
         loading.value = false;
@@ -24,7 +23,6 @@ const takeScreenshot = async () => {
       generatedScreen.value = url;
     });
   loading.value = false;
-  console.log(generatedScreen.value);
 };
 
 const handleSubmit = () => {
@@ -35,7 +33,7 @@ const handleSubmit = () => {
 <template>
   <section>
     <div
-      class="relative overflow-hidden before:absolute before:top-0 before:start-1/2 before:bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')] before:bg-no-repeat before:bg-top before:bg-cover before:w-full before:h-full before:-z-[1] before:transform before:-translate-x-1/2 dark:before:bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element-dark.svg')]"
+      class="relative overflow-hidden before:absolute before:top-0 before:start-1/2 before:bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')] before:bg-no-repeat before:bg-top before:bg-cover before:w-full before:h-full before:-z-[1] before:transform before:-translate-x-1/2"
     >
       <div class="max-w-4xl w-full text-center mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-center my-3 -ml-4">
@@ -47,12 +45,10 @@ const handleSubmit = () => {
           <h1 class="-ml-8 text-3xl font-semibold">SnapEasy.</h1>
         </div>
 
-        <h1
-          class="text-3xl -mt-12 font-bold text-gray-800 sm:text-4xl dark:text-white"
-        >
+        <h1 class="text-3xl -mt-12 font-bold text-gray-800 sm:text-4xl">
           Welcome to SnapEasy
         </h1>
-        <p class="mt-3 text-gray-600 dark:text-gray-400">
+        <p class="mt-3 text-gray-600">
           Capture Webpage Screenshots With Easy😉.
         </p>
         <div class="flex items-center justify-center my-5 gap-2">
@@ -103,13 +99,13 @@ const handleSubmit = () => {
           <input
             type="text"
             v-model="webUrl"
-            class="p-4 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+            class="p-4 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
             placeholder="Type your webpage url..."
           />
           <div class="absolute top-1/2 end-2 -translate-y-1/2">
             <button
               type="submit"
-              class="w-10 h-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-500 hover:text-gray-800 bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-gray-400 dark:hover:text-white dark:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+              class="w-10 h-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-500 hover:text-gray-800 bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
             >
               <Icon
                 name="material-symbols:camera"
@@ -121,7 +117,10 @@ const handleSubmit = () => {
         </form>
       </div>
       <!-- End Search -->
-      <UIType :generatedScreen="generatedScreen" :webUrl="webUrl" />
+      <UIType
+        :generatedScreen="generatedScreen"
+        :webUrl="webUrl ? webUrl : 'https://the-coding-montana.vercel.app'"
+      />
     </div>
   </section>
 </template>

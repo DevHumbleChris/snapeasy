@@ -39,7 +39,6 @@ const generatedScreen = computed(() => {
 const webUrl = computed(() => {
   return props?.webUrl;
 });
-
 const selectedView = useState("selectedView", () => "default");
 
 const downloadFile = async (type) => {
@@ -97,19 +96,17 @@ const downloadFile = async (type) => {
 
         <img
           className="object-cover w-full rounded-xl h-full"
-          :src="
-            generatedScreen
-              ? generatedScreen
-              : 'https://www.screenia.best/images/themeptation-screenshot.png'
-          "
+          :src="generatedScreen ? generatedScreen : 'images/montana.png'"
           :alt="'screenia screenshot of' + webUrl"
         />
       </div>
     </div>
-    <div class="space-y-4">
+    <div
+      class="space-y-4 hover:bg-gray-200 p-4 md:p-5 rounded-xl bg-white shadow-md hover:border-transparent"
+    >
       <button
         type="button"
-        class="text-start hover:bg-gray-200 p-4 md:p-5 rounded-xl bg-white shadow-md hover:border-transparent"
+        class="text-start"
         id="tabs-with-card-item-2"
         data-hs-tab="#tabs-with-card-2"
         aria-controls="tabs-with-card-2"
@@ -129,25 +126,25 @@ const downloadFile = async (type) => {
               "
               >SnapEasy API</span
             >
-            <span
-              class="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-gray-200"
-              >Our UI is developed with simplicity and intuitiveness in mind,
-              making it easy to use even for first-time users.</span
+            <span class="block mt-1 text-gray-800"
+              >You can also use the SnapEasy API in your project and integrate
+              it with any service you may wish to. SnapEasy is built on Nuxt
+              3.</span
             >
-            <client-only>
-              <div class="max-w-[30rem]">
-                <VCodeBlock
-                  :code="code"
-                  highlightjs
-                  label="Hello World"
-                  lang="javascript"
-                  theme="github-dark"
-                />
-              </div>
-            </client-only>
           </span>
         </span>
       </button>
+      <client-only>
+        <div>
+          <VCodeBlock
+            :code="code"
+            highlightjs
+            lang="javascript"
+            theme="github-dark"
+            label="API Code"
+          />
+        </div>
+      </client-only>
     </div>
   </div>
 </template>

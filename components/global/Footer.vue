@@ -12,7 +12,7 @@ const year = computed(() => {
     <div class="text-center">
       <div>
         <a
-          class="flex-none text-xl font-semibold text-black dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+          class="flex-none text-xl font-semibold text-black"
           href="#"
           aria-label="Brand"
           >SnapEasy</a
@@ -22,10 +22,10 @@ const year = computed(() => {
 
       <div class="mt-3">
         <p class="text-gray-500">
-          Built with 😍💖
+          Built with 😍💖,
           <NuxtLink
             to="https://the-coding-montana.vercel.app"
-            class="font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-400"
+            class="font-semibold text-blue-600 hover:text-blue-700"
             target="_blank"
             >The Coding Montana</NuxtLink
           >.
@@ -36,7 +36,7 @@ const year = computed(() => {
       <!-- Social Brands -->
       <div class="mt-3 space-x-2">
         <NuxtLink
-          class="inline-flex justify-center items-center w-10 h-10 text-center text-gray-500 hover:bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800"
+          class="inline-flex justify-center items-center w-10 h-10 text-center text-gray-500 hover:bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition"
           to="https://twitter.com/AmChrisKE"
           target="_blank"
         >
@@ -54,7 +54,7 @@ const year = computed(() => {
           </svg>
         </NuxtLink>
         <NuxtLink
-          class="inline-flex justify-center items-center w-10 h-10 text-center text-gray-500 hover:bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800"
+          class="inline-flex justify-center items-center w-10 h-10 text-center text-gray-500 hover:bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition"
           to="https://github.com/DevHumbleChris"
           target="_blank"
         >

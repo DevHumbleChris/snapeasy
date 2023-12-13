@@ -11,7 +11,6 @@ const getWebUrlScreenshot = async (url: String) => {
       return response.blob();
     })
     .then((blob: any) => {
-      console.log(blob);
       if (process.client) {
         return window.URL.createObjectURL(blob);
       }
