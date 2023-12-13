@@ -13,12 +13,10 @@ export default defineEventHandler(async (event) => {
   // First, create a browserless factory
   // that it will keep a singleton process running
   const browser = createBrowser({
-    timeout: 30000,
+    timeout: 25000,
     lossyDeviceName: true,
     ignoreHTTPSErrors: true,
   });
-
-  console.log("Created Browser");
 
   try {
     // After that, you can create as many browser context
@@ -27,14 +25,21 @@ export default defineEventHandler(async (event) => {
     const browserless = await browser.createContext();
     console.log("Creating browser contexts");
 
-    // Perform the action you want, e.g., getting the HTML markup
-    const buffer = await browserless.screenshot(url, {
-      device: "Macbook Pro 13",
-      viewport: {
-        width: 1920,
-        height: 1080,
+    const buffer = await screencast({
+      getBrowserless: () => browserless,
+      format: "webm",
+      ffmpegPath: await execa
+        .command("which ffmpeg")
+        .then(({ stdout }) => stdout),
+      gotoOpts: {
+        url,
+        animations: true,
+        abortTypes: [],
+        waitUntil: "load",
       },
-      waitUntil: "domcontentloaded",
+      withPage: async (page) => {
+        await page.waitForTimeout(7000);
+      },
     });
 
     // After your task is done, destroy your browser context

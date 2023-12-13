@@ -1,6 +1,22 @@
 <script setup>
 import Chat from "~/components/global/Chat.vue";
 import { Button } from "~/components/ui/button";
+import download from "~/lib/download";
+import slugify from "slugify";
+
+const props = defineProps({
+  generatedScreen: String,
+  webUrl: String,
+});
+
+const generatedScreen = computed(() => {
+  return props?.generatedScreen;
+});
+
+const webUrl = computed(() => {
+  return props?.webUrl;
+});
+
 const selectedView = useState("selectedView", () => "default");
 
 const setSelectedView = (viewType) => {
@@ -11,6 +27,32 @@ const downloadType = useState("downloadType", () => "screenshot");
 
 const setDownloadType = (type) => {
   downloadType.value = type;
+};
+
+const downloadFile = async () => {
+  const file = await download(downloadType.value, webUrl.value);
+  const link = document.createElement("a");
+
+  if (downloadType.value === "sceenshot") {
+    // Append the link to the document
+    document.body.appendChild(link);
+
+    link.download = `SnapEasy_${webUrl.value}.png`;
+
+    // Create a URL for the Blob and set it as the href attribute of the link
+    link.href = file;
+
+    // Append the link to the document
+    document.body.appendChild(link);
+
+    // Trigger a click on the link to start the download
+    link.click();
+
+    // Remove the link from the document
+    document.body.removeChild(link);
+  } else if (downloadType.value === "sceencast") {
+    console.log(file);
+  }
 };
 </script>
 
@@ -23,7 +65,10 @@ const setDownloadType = (type) => {
     </div>
     <div v-if="selectedView === 'default'" class="space-y-3">
       <div class="relative border p-2 rounded-md shadow-lg">
-        <Button class="absolute w-56 text-right top-5 right-5">
+        <Button
+          class="absolute w-56 text-right top-5 right-5"
+          @click="downloadFile"
+        >
           <Icon
             name="solar:gallery-download-line-duotone"
             class="h-3.5 w-3.5 mx-2"
@@ -33,7 +78,11 @@ const setDownloadType = (type) => {
 
         <img
           className="object-cover w-full rounded-xl h-full"
-          src="https://www.screenia.best/images/themeptation-screenshot.png"
+          :src="
+            generatedScreen
+              ? generatedScreen
+              : 'https://www.screenia.best/images/themeptation-screenshot.png'
+          "
           :alt="'screenia screenshot of' + webUrl"
         />
       </div>

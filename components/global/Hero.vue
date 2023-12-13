@@ -121,14 +121,7 @@ const handleSubmit = () => {
         </form>
       </div>
       <!-- End Search -->
-      <UIType />
-
-      <img
-        v-if="generatedScreen"
-        className="object-cover w-full rounded-xl"
-        :src="generatedScreen"
-        :alt="'screenia screenshot of' + webUrl"
-      />
+      <UIType :generatedScreen="generatedScreen" :webUrl="webUrl" />
     </div>
   </section>
 </template>
