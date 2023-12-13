@@ -7,7 +7,7 @@ useHead({
   meta: [
     {
       property: "og:title",
-      content: `Christopher Odhiambo (The Coding Montana)`,
+      content: `SnapEasy`,
     },
     {
       name: "description",
